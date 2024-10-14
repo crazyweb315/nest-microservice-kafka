@@ -40,6 +40,11 @@ export class UsersResolver {
     return this.usersService.createUser(createUsersInput);
   }
 
+  @Query(() => UsersResponse)
+  async meByToken(@Args('token') token: string): Promise<UsersResponse> {
+    return this.usersService.getUserByToken(token);
+  }
+
   @UseGuards(AuthGuard)
   @Query(() => UserType)
   async me(@Context() context: GqlContext) {
