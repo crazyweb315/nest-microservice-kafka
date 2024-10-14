@@ -3,9 +3,9 @@ import { IsString, IsNumber } from 'class-validator';
 
 @InputType()
 export class CreateProjectsInput {
-  @Field(() => Int, { description: 'User Id' })
-  @IsNumber()
-  userId: number;
+  // @Field(() => Int, { description: 'User Id' })
+  // @IsNumber()
+  // userId: number;
 
   @Field(() => String, { description: 'Project title' })
   @IsString()
