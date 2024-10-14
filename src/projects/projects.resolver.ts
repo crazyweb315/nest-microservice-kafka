@@ -7,6 +7,7 @@ import {
   ResolveField,
   Parent,
   Subscription,
+  Context,
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
@@ -16,11 +17,12 @@ import { Project } from '@prisma/client';
 import { UsersService } from '../users/users.service';
 import { CreateProjectsInput } from '../shared/projects/dto/create-projects.input';
 import { PubSub } from 'graphql-subscriptions';
-import { AuthGuard } from '../users/decorator/ auth.guard';
+import { MicroServiceAuthGuard } from '../shared/decorator/microservice.auth.guard';
+import { GqlContext } from '../shared/interfaces/context.interface';
 
 const pubSub = new PubSub();
 
-@UseGuards(AuthGuard)
+@UseGuards(MicroServiceAuthGuard)
 @Resolver(() => ProjectType)
 export class ProjectsResolver {
   constructor(
@@ -30,12 +32,13 @@ export class ProjectsResolver {
 
   @Mutation(() => ProjectType)
   async createProject(
+    @Context() context: GqlContext,
     @Args('createProjectsInput') createProjectsInput: CreateProjectsInput,
   ): Promise<Project> {
     try {
       const project = this.projectsService.createProject(
         createProjectsInput.title,
-        createProjectsInput.userId,
+        Number(context.req.user.id as number),
       );
 
       pubSub.publish('projectCreated', { projectCreated: project });
@@ -53,10 +56,10 @@ export class ProjectsResolver {
   }
 
   @Query(() => [ProjectType])
-  async projectsByUserId(
-    @Args('userId', { type: () => Int }) userId: number,
-  ): Promise<Project[]> {
-    return this.projectsService.findProjectsByUserId(userId);
+  async myProjects(@Context() context: GqlContext): Promise<Project[]> {
+    return this.projectsService.findProjectsByUserId(
+      Number(context.req.user.id),
+    );
   }
 
   @ResolveField(() => UserType) // Resolver for the user field
