@@ -19,6 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'), // Automatically generate schema
       playground: true,
+      path: `/${process.env.BACKEND_PREFIX}/graphql`,
       subscriptions: {
         'subscriptions-transport-ws': true,
         'graphql-ws': {
