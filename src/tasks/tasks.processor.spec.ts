@@ -3,7 +3,7 @@ import { TasksWorker } from './tasks.worker';
 import { BullModule } from '@nestjs/bullmq';
 import { ProjectsModule } from '../projects/projects.module';
 import { TasksService } from './tasks.service';
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../app.module';
 
 describe('TasksProcessor', () => {
   let provider: TasksWorker;

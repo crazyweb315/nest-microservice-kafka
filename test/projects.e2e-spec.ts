@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { UsersService } from '../src/users/users.service';
 import { faker } from '@faker-js/faker';
-import { UserType } from '../src/users/gql/user.type';
+import { UserType } from '../src/shared/users/gql/user.type';
 import { ProjectsService } from '../src/projects/projects.service';
 
 import { forwardRef } from '@nestjs/common';
