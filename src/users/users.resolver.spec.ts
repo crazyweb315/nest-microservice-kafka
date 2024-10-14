@@ -3,13 +3,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
 import { faker } from '@faker-js/faker';
-import { CreateUsersInput } from './dto/create-users.input';
+import { CreateUsersInput } from '../shared/users/dto/create-users.input';
 import { ProjectsModule } from '../projects/projects.module';
 import jwtConfig from './config/jwt.config';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { BcryptService } from '../shared/hashing/bcrypt.service';
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../app.module';
 import { omit } from 'lodash';
 import { User } from '@prisma/client';
 

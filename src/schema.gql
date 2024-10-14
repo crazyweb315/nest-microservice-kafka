@@ -35,12 +35,12 @@ type LoginResponse {
 }
 
 type Query {
+  projects: [ProjectType!]!
+  projectsByUserId(userId: Int!): [ProjectType!]!
   logIn(loginInput: LoginInput!): LoginResponse!
   me: UserType!
   users: [UserType!]!
   refreshToken(token: String!): LoginResponse!
-  projects: [ProjectType!]!
-  projectsByUserId(userId: Int!): [ProjectType!]!
 }
 
 input LoginInput {
@@ -55,9 +55,17 @@ input LoginInput {
 }
 
 type Mutation {
+  createProject(createProjectsInput: CreateProjectsInput!): ProjectType!
   createUser(createUsersInput: CreateUsersInput!): UserType!
   deleteUser: UserType!
-  createProject(createProjectsInput: CreateProjectsInput!): ProjectType!
+}
+
+input CreateProjectsInput {
+  """User Id"""
+  userId: Int!
+
+  """Project title"""
+  title: String!
 }
 
 input CreateUsersInput {
@@ -75,14 +83,6 @@ input CreateUsersInput {
 
   """Bio"""
   bio: String
-}
-
-input CreateProjectsInput {
-  """User Id"""
-  userId: Int!
-
-  """Project title"""
-  title: String!
 }
 
 type Subscription {

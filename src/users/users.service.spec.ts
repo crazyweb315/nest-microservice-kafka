@@ -8,8 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import jwtConfig from './config/jwt.config';
 import { ConfigModule } from '@nestjs/config';
 import { forwardRef } from '@nestjs/common';
-import { AppModule } from '../src/app.module';
-import { UserType } from './gql/user.type';
+import { AppModule } from '../app.module';
+import { UserType } from '../shared/users/gql/user.type';
 
 describe('UsersService', () => {
   let userService: UsersService;
