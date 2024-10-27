@@ -2,13 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type ProjectType {
-  id: Int!
-  title: String!
-  userId: Int!
-  user: UserType!
-}
-
 type UserType {
   id: Int!
   name: String!
@@ -16,7 +9,6 @@ type UserType {
   email: String!
   password: String!
   bio: String
-  projects: [ProjectType!]
 }
 
 type UsersResponse {
@@ -25,7 +17,6 @@ type UsersResponse {
   username: String!
   email: String!
   bio: String
-  projects: [ProjectType!]
 }
 
 type LoginResponse {
@@ -40,8 +31,6 @@ type Query {
   me: UserType!
   users: [UserType!]!
   refreshToken(token: String!): LoginResponse!
-  projects: [ProjectType!]!
-  myProjects: [ProjectType!]!
 }
 
 input LoginInput {
@@ -58,7 +47,6 @@ input LoginInput {
 type Mutation {
   createUser(createUsersInput: CreateUsersInput!): UserType!
   deleteUser: UserType!
-  createProject(createProjectsInput: CreateProjectsInput!): ProjectType!
 }
 
 input CreateUsersInput {
@@ -76,13 +64,4 @@ input CreateUsersInput {
 
   """Bio"""
   bio: String
-}
-
-input CreateProjectsInput {
-  """Project title"""
-  title: String!
-}
-
-type Subscription {
-  projectCreated: ProjectType!
 }

@@ -9,9 +9,7 @@ import {
 } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { UserType } from './interface/gql/user.type';
-import { ProjectType } from '../shared/projects/gql/project.type';
 import { Project, User } from '@prisma/client';
-import { ProjectsService } from '../projects/projects.service';
 import { CreateUsersInput } from './interface/dto/create-users.input';
 import { UsersResponse } from './interface/gql/users.response';
 import { LoginResponse } from './interface/gql/login.response';
@@ -23,7 +21,6 @@ import { GqlContext } from '../shared/interfaces/context.interface';
 export class UsersResolver {
   constructor(
     private readonly usersService: UsersService,
-    private projectsService: ProjectsService,
   ) {}
 
   @Query(() => LoginResponse)
@@ -61,12 +58,6 @@ export class UsersResolver {
   @Mutation(() => UserType)
   async deleteUser(@Context() context: GqlContext) {
     return this.usersService.deleteUser(context.req.user.id);
-  }
-
-  @UseGuards(AuthGuard)
-  @ResolveField(() => [ProjectType])
-  async projects(@Parent() user: User): Promise<Project[]> {
-    return this.projectsService.findProjectsByUserId(user.id);
   }
 
   @Query(() => LoginResponse)

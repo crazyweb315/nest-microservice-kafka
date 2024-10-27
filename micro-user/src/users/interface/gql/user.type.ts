@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { ProjectType } from '../../projects/gql/project.type';
 
 @ObjectType()
 export class UserType {
@@ -21,9 +20,6 @@ export class UserType {
 
   @Field(() => String, { nullable: true })
   bio: string;
-
-  @Field(() => [ProjectType], { nullable: true }) // Add this line
-  projects?: ProjectType[]; // Relationship with projects
 
   public static columns() {
     return {

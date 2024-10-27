@@ -4,10 +4,8 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from './users/users.module';
 import { join } from 'path';
-import { ProjectsModule } from './projects/projects.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TasksModule } from './tasks/tasks.module';
 import { BullModule } from '@nestjs/bullmq';
 import { PubSub } from 'graphql-subscriptions';
 import { LoggerModule } from './shared/logger/logger.module';
@@ -49,8 +47,6 @@ import { PrismaModule } from './prisma/prisma.module';
       envFilePath: ['.env', '.env.dev', '.env.stage', '.env.prod'],
     }),
     UsersModule,
-    ProjectsModule,
-    TasksModule,
     PrismaModule,
     LoggerModule,
   ],
